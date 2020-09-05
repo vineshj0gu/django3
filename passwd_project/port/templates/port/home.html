@@ -1,0 +1,31 @@
+{% extends 'port/base.html'%}
+
+{% block content %}
+    <h1>Jogu's Portfolio</h1>
+    {% load static %}
+    <br>
+
+
+    <br>
+    <a href="{% url 'blog:allblog' %}"> blog</a>
+
+    <br>
+    <a href="{% static 'port/SCERT.pdf' %}"> telugubooks</a>
+    <br>
+    <a href="{% static 'port/drafting.pdf' %}"> Drafting</a>
+    <img src="{% static 'port/1.jpg' %}" >
+
+    {% for p in projects %}
+
+    <h2>{{ p.title }}</h2>
+      <br>
+    {{ p.description }}<br>
+    <img src="{{ p.image.url }}" width="500" height="600">
+    {%  if p.url %}<br>
+    <a href="{{p.url}}"> {{p.url}}</a>
+    {% endif %}
+    <br>
+    {% endfor%}
+
+
+  {% endblock%}

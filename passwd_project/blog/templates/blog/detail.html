@@ -1,0 +1,12 @@
+{% extends 'port/base.html'%}
+
+{% block content%}
+<h1>{{ id.name  }}</h1>
+--{{ id.date|date:'F jS Y' }}--
+<br>
+<pr>
+{{ id.details }}
+</pr>
+<br>
+{{id.url}}
+{%endblock%}

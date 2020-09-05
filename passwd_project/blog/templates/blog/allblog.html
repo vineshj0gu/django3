@@ -1,0 +1,16 @@
+{% extends 'port/base.html'%}
+
+{% block content%}
+
+allblog
+<h2>Jogu Have written  {{data.count}}  blog{{data.count|pluralize}}</h2>
+{% for b in data %}
+<a href="{% url 'blog:detail' b.id  %}" target="_blank"><h2>{{b.name}}</h2></a>
+<br>
+<p>{{b.details|safe|truncatechars:50}}<p>
+<br>
+<h4>{{b.date|date:'M d Y'|upper }}<h4>
+<br>
+{{b.url}}
+{% endfor %}
+{% endblock%}
