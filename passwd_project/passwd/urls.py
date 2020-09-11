@@ -19,16 +19,45 @@ from gen import views
 from django.conf.urls.static import static
 from django.conf import settings
 from port import view
+from todo import viewt
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include('blog.urls')),
+
+    #porfolio
+
     path('port/',view.home, name='port'),
     path('port1/', include('port.urls')),
+
+
+
+    path('blog/', include('blog.urls')),
     path('home/',views.home, name='home'),
     path('time/',views.time, name='time'),
+
+    # passwd gen
     path('home/passwd/',views.passwd, name='pass'),
     path('about/',views.about, name='about'),
+
+
+
+
+    # AUTH
+    path('signup/', viewt.signupuser, name='signupuser'),
+    path('logout/', viewt.logoutuser, name='logoutuser'),
+    path('login/', viewt.loginuser, name='loginuser'),
+
+#todo
+    path('current/', viewt.current, name='current'),
+    path('alldone/', viewt.alldone, name='alldone'),
+
+    path('todo/<int:todo_pk>', viewt.viewtodo, name='viewtodo'),
+    path('todo/<int:todo_pk>/complete', viewt.completetodo, name='completetodo'),
+    path('todo/<int:todo_pk>/delete', viewt.deletetodo, name='deletetodo'),
+    path('create/', viewt.create, name='create'),
+    path('out/', viewt.out, name='out'),
+
 ]
 urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

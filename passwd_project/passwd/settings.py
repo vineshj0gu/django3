@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'gen',
     'blog',
     'port',
+    'todo',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+try:
+    from .local_settings import *
+except ImportError:
+    print(" no local setting .. u are on prod")
