@@ -2,13 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.db import  IntegrityError
 from .forms import TodoFrom
 from .models import Todo
 from django.utils import timezone
 
 
+
 # Create your views here.
+@login_required
 def create(request):
     if request.method == 'GET':
         return render(request, 'todo/create.html',{'form':TodoFrom()} )
@@ -58,15 +61,15 @@ def logoutuser(request):
     if request.method == 'POST':
         logout(request)
         return   redirect('out')
-
+@login_required
 def current(request):
     todos = Todo.objects.filter(user=request.user, datecompleted__isnull=True)
     return render(request, 'todo/current.html', {'todo':todos})
-
+@login_required
 def alldone(request):
     todos = Todo.objects.filter(user=request.user, datecompleted__isnull=False).order_by('datecompleted')
     return render(request, 'todo/alldone.html', {'todo':todos})
-
+@login_required
 def viewtodo(request, todo_pk):
     todos = get_object_or_404(Todo, pk=todo_pk)
     if request.method == 'GET':
@@ -79,7 +82,7 @@ def viewtodo(request, todo_pk):
             return redirect('current')
         except ValueError:
             return render(request, 'todo/viewtodo.html',  {'todo':todos, 'form':form, 'error': 'bad info'})
-
+@login_required
 def completetodo(request, todo_pk):
     todos =  get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
@@ -88,7 +91,7 @@ def completetodo(request, todo_pk):
         print(time)
         todos.save()
         return redirect('current')
-
+@login_required
 def deletetodo(request, todo_pk):
     todos =  get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
@@ -99,6 +102,6 @@ def deletetodo(request, todo_pk):
         return redirect('current')
 
 
-
+@login_required
 def todo(request):
     return render(request, 'todo/todo.html' )

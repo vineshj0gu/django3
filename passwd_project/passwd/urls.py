@@ -52,7 +52,6 @@ urlpatterns = [
 #todo
     path('current/', viewt.current, name='current'),
     path('alldone/', viewt.alldone, name='alldone'),
-
     path('todo/<int:todo_pk>', viewt.viewtodo, name='viewtodo'),
     path('todo/<int:todo_pk>/complete', viewt.completetodo, name='completetodo'),
     path('todo/<int:todo_pk>/delete', viewt.deletetodo, name='deletetodo'),
